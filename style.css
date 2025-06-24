@@ -1,0 +1,804 @@
+#settingsPanel {
+    max-width: none;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: none; 
+    z-index: 999;
+    
+    background-color: #111827;
+    color: #e5e7eb;
+    position: relative;
+    padding: 30px 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #111827;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    min-height: 100vh;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-y: auto; 
+}
+html.popup-open,
+body.popup-open {
+    overflow: hidden;
+}
+.content-locked {
+    pointer-events: none;
+}
+
+#settingsPanel > .back-button {
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
+#settingsPanel > h1,
+#settingsPanel > .user-id-display {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+
+#settings-main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+}
+
+#settings-main-content > div:first-child {
+    flex: 2;
+}
+#settings-main-content > div:last-child {
+    flex: 1;
+}
+
+#settingsPanel h1, #settingsPanel h2, #settingsPanel h3 { 
+    color: #ffffff; 
+}
+#settingsPanel .user-id-display {
+    color: #d1d5db; 
+}
+#settingsPanel .bg-blue-50, 
+#settingsPanel .bg-gray-50,
+#settingsPanel .bg-gray-700 { 
+    background-color: #1f2937; 
+    box-shadow: none; 
+}
+
+#settingsPanel input[type="text"],
+#settingsPanel input[type="time"], 
+#settingsPanel input[type="date"] { 
+    background-color: #374151; 
+    color: #e5e7eb; 
+    border: 1px solid #4b5563; 
+    padding: 10px; 
+    border-radius: 8px;
+    width: 100%; 
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 5px;
+    justify-content: center;
+}
+.color-palette-item {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.color-palette-item.white-swatch {
+    border-color: #000000;
+}
+#settingsPanel .color-palette-item.white-swatch {
+     border-color: #6b7280;
+}
+
+.color-palette-item.selected {
+    border-color: #60a5fa; 
+    box-shadow: 0 0 0 2px #60a5fa;
+}
+#settingsPanel .color-palette-item.selected {
+     border-color: #93c5fd; 
+     box-shadow: 0 0 0 2px #93c5fd;
+}
+ .color-palette-item.selected.white-swatch {
+    border-color: #60a5fa;
+ }
+ #settingsPanel .color-palette-item.selected.white-swatch {
+    border-color: #93c5fd;
+ }
+
+.color-palette-item:hover {
+    opacity: 0.8;
+}
+ .color-palette.disabled .color-palette-item:not(.selected) {
+    opacity: 0.3;
+    cursor: not-allowed;
+ }
+ .color-palette.disabled .color-palette-item.selected {
+    cursor: not-allowed;
+ }
+
+#settingsPanel input[type="text"]::placeholder,
+#settingsPanel input[type="time"]::placeholder {
+     color: #9ca3af; 
+}
+
+#settingsPanel .back-button { 
+    background-color: #2563eb; 
+    color: white;
+    padding: 8px 12px; 
+    border-radius: 8px; 
+    font-size: 1.2rem; 
+    box-shadow: 0 2px 5px rgba(37, 99, 235, 0.3);
+}
+#settingsPanel .back-button:hover {
+    background-color: #1d4ed8; 
+}
+
+#settingsPanel .calendar-grid {
+    background-color: #374151; 
+}
+#settingsPanel .calendar-header { 
+    background-color: #1f2937; 
+    color: #e5e7eb; 
+}
+#settingsPanel .calendar-day-column { 
+    background-color: #2d3748;
+    color: #e5e7eb;
+}
+#settingsPanel .calendar-hour-marker {
+    border-bottom-color: #374151; 
+}
+#settingsPanel .calendar-task {
+    border: 1px solid #6b7280; 
+    border-radius: 8px; 
+}
+#settingsPanel .calendar-task:hover {
+    filter: brightness(1.2); 
+}
+#settingsPanel .popup-base .day-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; 
+    margin-bottom: 10px; 
+}
+#settingsPanel .popup-base .day-checkboxes label {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    color: #e5e7eb; 
+    cursor: pointer;
+    min-width: 40px; 
+    padding: 5px;
+}
+#settingsPanel .popup-base .day-checkboxes label span {
+    font-size: 0.9em; 
+    margin-bottom: 4px; 
+    order: 1; 
+}
+#settingsPanel .popup-base .day-checkboxes input[type="checkbox"] {
+    accent-color: #60a5fa; 
+    width: 1.5em;  
+    height: 1.5em; 
+    order: 2; 
+}
+
+#settingsPanel #taskSummaryContainer {
+    margin-top: 0;
+    padding: 20px 30px;
+    background-color: #1f2937; 
+    border-radius: 0;
+}
+#settingsPanel #taskSummaryContainer h3 {
+    font-size: 1.5rem; 
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #ffffff; 
+}
+#settingsPanel #taskSummaryTable { 
+    width: 100%;
+    border-collapse: collapse; 
+    margin-top: 10px;
+}
+#settingsPanel #taskSummaryTable th, 
+#settingsPanel #taskSummaryTable td {
+    padding: 10px 12px; 
+    text-align: left;
+    border-bottom: 1px solid #374151; 
+    color: #d1d5db; 
+}
+#settingsPanel #taskSummaryTable th {
+    font-weight: 600;
+    color: #e5e7eb; 
+    font-size: 1rem;
+}
+#settingsPanel #taskSummaryTable td {
+    font-size: 0.95rem;
+}
+#settingsPanel #taskSummaryTable .summary-task-name {
+}
+#settingsPanel #taskSummaryTable .summary-task-duration {
+    font-weight: bold;
+    font-size: 1.3em; 
+    text-align: left; 
+    color: #90cdf4; 
+}
+ #settingsPanel #taskSummaryTable tr:last-child td {
+    border-bottom: none;
+}
+#settingsPanel .bg-gray-50 {
+    padding: 20px 30px;
+    border-radius: 0;
+}
+
+.full-screen-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-color: #1a202c; color: #e2e8f0; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    font-size: clamp(2rem, 10vmin, 8rem);
+    font-weight: bold; text-align: center;
+    z-index: 1000; opacity: 1; visibility: visible; pointer-events: auto; 
+    transition: opacity 0.3s ease, visibility 0.3s ease; position: relative; 
+}
+.full-screen-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.full-screen-overlay .task-text { margin-bottom: 20px; padding: 0 20px; word-break: break-word; }
+
+#fullScreenContentWrapper {
+    width: 100%; 
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.settings-button { 
+    position: absolute; top: 20px; left: 20px;
+    background-color: rgba(255, 255, 255, 0.2); color: white; padding: 10px; border-radius: 50%;
+    width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;
+    cursor: pointer; font-size: 1.5rem; transition: background-color 0.2s ease;
+    z-index: 1001; 
+}
+.settings-button:hover { background-color: rgba(255, 255, 255, 0.4); }
+
+h2 { font-size: 1.8rem; font-weight: 700; color: #2d3748; margin-bottom: 25px; text-align: center; }
+
+.message-box {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background-color: #fff; padding: 20px; border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); z-index: 2000;
+    display: none; flex-direction: column; align-items: center; gap: 15px;
+    max-width: 300px; text-align: center;
+}
+.message-box p { font-size: 1.1rem; color: #2d3748; }
+.message-box button {
+    padding: 8px 20px; font-size: 1rem; border-radius: 8px;
+    background-color: #4299e1; color: white; cursor: pointer;
+}
+
+.notification-banner {
+    position: fixed;
+    top: -100px; 
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #28a745; 
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 2005; 
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    transition: top 0.5s ease-in-out;
+    min-width: 250px;
+}
+.notification-banner.show {
+    top: 20px; 
+}
+
+.calendar-grid {
+    display: grid; 
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: auto repeat(24, 40px); 
+    column-gap: 1px; row-gap: 0;      
+    background-color: #e2e8f0; border-radius: 10px; overflow: hidden;
+    margin-top: 25px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); position: relative; 
+}
+.calendar-header { 
+    background-color: #ffffff; color: #4a5568; padding: 8px 5px; text-align: center;
+    font-size: 0.85rem; font-weight: 600; display: flex; justify-content: center; align-items: center;
+    border-bottom: 1px solid #e2e8f0; box-sizing: border-box;           
+}
+
+.calendar-day-column { 
+    position: relative; 
+    grid-row: 2 / span 24;
+    display: flex; 
+    flex-direction: column; 
+    box-sizing: border-box;
+    background-color: #f7fafc;
+}
+#settingsPanel .calendar-day-column {
+    background-color: #2d3748;
+}
+
+
+.calendar-hour-marker { 
+    height: 40px; border-bottom: 1px solid #e2e8f0; box-sizing: border-box;
+    position: relative;
+}
+.calendar-hour-marker:last-child { border-bottom: none; }
+
+.calendar-hour-marker::before {
+    content: attr(data-hour);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #a0aec0;
+    font-size: 0.8rem;
+    z-index: 0;
+    opacity: 0.5;
+}
+
+.calendar-task { 
+    position: absolute; left: 1px; right: 1px; 
+    font-size: 0.75rem; padding: 2px 4px; 
+    border-radius: 4px; 
+    box-sizing: border-box;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: filter 0.2s ease; z-index: 1; 
+}
+.calendar-task:hover { filter: brightness(1.15); }
+
+.popup-base {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    z-index: 2001; 
+    display: none;
+    flex-direction: column;
+    align-items: stretch; 
+    gap: 15px;
+    max-width: 400px;
+    width: 90%; 
+    text-align: left;
+    max-height: 85vh;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #6b7280 #f0f4f8;
+}
+
+#settingsPanel .popup-base {
+    scrollbar-color: #4b5563 #1f2937;
+}
+
+.popup-base::-webkit-scrollbar {
+  width: 8px;
+}
+.popup-base::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+.popup-base::-webkit-scrollbar-thumb {
+  background-color: #6b7280;
+  border-radius: 4px;
+}
+.popup-base::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
+
+.popup-close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    z-index: 10;
+}
+.popup-close-button:hover {
+    background-color: #dc2626;
+}
+#settingsPanel .popup-close-button {
+    background-color: #7f1d1d;
+}
+#settingsPanel .popup-close-button:hover {
+    background-color: #b91c1c;
+}
+
+
+.popup-base h3 {
+    font-size: 1.5rem; font-weight: bold; color: #1a202c; 
+    text-align: center; margin-bottom: 10px;
+    padding-right: 30px;
+}
+.popup-base p { font-size: 0.95rem; color: #4a5568; margin-bottom: 5px; }
+.popup-base label {
+    font-size: 0.9rem; color: #4a5568;
+    display: block;
+}
+.popup-base input[type="text"],
+.popup-base input[type="time"] { 
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db; 
+    border-radius: 6px;
+    font-size: 0.95rem;
+    margin-top: 3px;
+    box-sizing: border-box;
+    background-color: #f9fafb; 
+    color: #1f2937; 
+}
+.popup-base .popup-button-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    margin-top: 15px;
+}
+ .popup-base .popup-button-group button,
+ .popup-base .single-button { 
+    color: white; padding: 10px 15px; border-radius: 8px;
+    font-size: 0.9rem; cursor: pointer; transition: background-color 0.2s ease;
+    border: none; text-align: center;
+}
+
+#calendarTaskPopup #popupEditDayCheckboxesContainer,
+#quickAddTaskPopup #quickAddDayCheckboxesContainer {
+     margin-top: 10px; margin-bottom: 5px;
+}
+#calendarTaskPopup #popupEditDayCheckboxesContainer h4,
+#quickAddTaskPopup #quickAddDayCheckboxesContainer h4 {
+     font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: #374151;
+}
+#calendarTaskPopup .day-checkboxes,
+#quickAddTaskPopup .day-checkboxes { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px; 
+}
+#calendarTaskPopup .day-checkboxes label,
+#quickAddTaskPopup .day-checkboxes label {
+    display: flex; flex-direction: column; align-items: center;    
+    color: #4a5568; cursor: pointer; min-width: 35px; padding: 3px; font-size: 0.85rem;
+}
+#calendarTaskPopup .day-checkboxes label span,
+#quickAddTaskPopup .day-checkboxes label span { margin-bottom: 2px; order: 1; }
+
+#calendarTaskPopup .day-checkboxes input[type="checkbox"],
+#quickAddTaskPopup .day-checkboxes input[type="checkbox"] { accent-color: #3b82f6; width: 1.3em; height: 1.3em; order: 2; }
+
+#calendarTaskPopup #popupUpdateButton { background-color: #3b82f6;  }
+#calendarTaskPopup #popupUpdateButton:hover { background-color: #2563eb;  }
+#calendarTaskPopup #popupDeleteButton { background-color: #ef4444;  }
+#calendarTaskPopup #popupDeleteButton:hover { background-color: #dc2626;  }
+
+.form-field-header {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 3px;
+}
+.form-field-header label {
+    margin-bottom: 0;
+}
+.existing-task-message {
+    color: #ef4444;
+    font-size: 0.8rem;
+    margin-left: 8px;
+    font-weight: normal;
+}
+
+#quickAddTaskPopup #quickAddErrorMessage { 
+    color: #ef4444; 
+    font-size: 0.875rem; 
+    margin-bottom: 0.5rem; 
+    text-align: center;
+}
+#quickAddTaskPopup #quickAddTaskSaveButton { background-color: #2563eb; }
+#quickAddTaskPopup #quickAddTaskSaveButton:hover { background-color: #1d4ed8; }
+#quickAddTaskPopup #quickAddTaskCancelButton { background-color: #9ca3af; }
+#quickAddTaskPopup #quickAddTaskCancelButton:hover { background-color: #6b7280; }
+
+#settingsPanel .popup-base {
+    background-color: #1f2937; 
+    color: #e5e7eb;
+    border: 1px solid #374151;
+}
+#settingsPanel .popup-base h3 { color: #ffffff; }
+#settingsPanel .popup-base p { color: #d1d5db; }
+#settingsPanel .popup-base label { color: #d1d5db; }
+#settingsPanel .popup-base input[type="text"],
+#settingsPanel .popup-base input[type="time"] { 
+    background-color: #374151;
+    color: #e5e7eb;
+    border-color: #4b5563;
+}
+#settingsPanel #calendarTaskPopup #popupEditDayCheckboxesContainer h4,
+#settingsPanel #quickAddTaskPopup #quickAddDayCheckboxesContainer h4 { color: #e5e7eb;}
+
+#settingsPanel #calendarTaskPopup .day-checkboxes label,
+#settingsPanel #quickAddTaskPopup .day-checkboxes label { color: #d1d5db; }
+
+#settingsPanel .existing-task-message,
+#settingsPanel #quickAddTaskPopup #quickAddErrorMessage { color: #f87171; } 
+
+
+.task-time-display {
+    font-size: 1.5rem; font-weight: normal; margin-top: -10px; margin-bottom: 30px; color: #cbd5e0; 
+}
+.next-task-display {
+    position: absolute; top: 20px; right: 20px; background-color: rgba(255, 255, 255, 0.2);
+    color: white; padding: 8px 15px; border-radius: 10px; font-size: 1rem; font-weight: normal;
+    display: flex; align-items: center; gap: 8px; z-index: 1001;
+}
+.progress-bar-container {
+    width: 80%; height: 10px; background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 5px; overflow: hidden; margin-top: 40px; position: relative;
+}
+.progress-bar {
+    height: 100%; width: 0%; border-radius: 5px; 
+    transition: width 0.5s ease-out, background-color 0.5s ease; 
+    box-sizing: border-box; 
+}
+
+.overlap-dialog {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background-color: #fff; padding: 30px; border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); z-index: 2002; 
+    display: none; flex-direction: column; align-items: center; gap: 20px;
+    max-width: 400px; text-align: center; color: #2d3748;
+}
+.overlap-dialog h3 { font-size: 1.6rem; font-weight: bold; margin-bottom: 10px; }
+.overlap-dialog p { font-size: 1.1rem; margin-bottom: 20px; }
+.overlap-dialog .button-group { display: flex; gap: 15px; }
+.overlap-dialog .button-group button {
+    flex: 1; padding: 10px 20px; font-size: 1rem; border-radius: 8px;
+    cursor: pointer; transition: background-color 0.2s ease;
+}
+.overlap-dialog .button-group .overwrite-button { background-color: #f56565; color: white; }
+.overlap-dialog .button-group .overwrite-button:hover { background-color: #e53e3e; }
+.overlap-dialog .button-group .cancel-button { background-color: #a0aec0; color: white; }
+.overlap-dialog .button-group .cancel-button:hover { background-color: #718096; }
+
+.schedule-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+#templateActionsButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.template-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #2d3748;
+    border: 1px solid #4a5568;
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 10;
+    min-width: 280px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.template-dropdown.active {
+    display: block;
+}
+.template-dropdown button, .template-dropdown .template-item-load {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    color: #e2e8f0;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.template-dropdown button:hover, .template-dropdown .template-item-load:hover {
+    background-color: #4a5568;
+}
+.template-dropdown .template-list-header {
+    color: #a0aec0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 0 12px;
+}
+ .template-dropdown .divider {
+    height: 1px;
+    background-color: #4a5568;
+    margin: 8px 0;
+ }
+.template-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    border-radius: 4px;
+}
+.template-item:hover {
+     background-color: #4a5568;
+}
+
+.template-item .template-item-load {
+    flex-grow: 1;
+    padding: 8px 12px;
+}
+
+.template-item .template-item-delete {
+    background: none;
+    border: none;
+    color: #cbd5e0;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 8px;
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+.template-item .template-item-delete:hover {
+    color: #ef4444;
+}
+
+@media screen and (max-width: 768px) {
+    #settingsPanel {
+        padding: 15px 0;
+    }
+
+    #settingsPanel > .back-button {
+        margin-left: 15px;
+    }
+    #settingsPanel > h1,
+    #settingsPanel > .user-id-display {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    #settingsPanel .bg-gray-50,
+    #settingsPanel #taskSummaryContainer {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    #settingsPanel .bg-gray-50 {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        background-color: transparent;
+        box-shadow: none;
+        border: none;
+    }
+
+    #settingsPanel h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    #settingsPanel h2 {
+        font-size: 1.25rem;
+    }
+    
+    .calendar-grid {
+        margin-top: 0;
+        border-radius: 0;
+    }
+    
+    .calendar-hour-marker::before{
+        font-size: 0.6rem;
+    }
+
+    .calendar-task {
+        font-size: 0.6rem;
+    }
+
+
+    .popup-base {
+        width: 85%;
+        max-height: 80vh;
+        padding: 20px 15px 15px 15px;
+        gap: 8px;
+    }
+    .popup-base h3 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+    .popup-base label {
+        font-size: 0.8rem;
+        margin-bottom: 2px;
+    }
+    .popup-base input[type="text"],
+    .popup-base input[type="time"] {
+        padding: 8px;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    .popup-base .flex.gap-4 {
+        gap: 0.5rem;
+    }
+    .popup-base .popup-button-group {
+        margin-top: 10px;
+    }
+    .popup-base .popup-button-group button {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+    #quickAddDayCheckboxesContainer,
+    #calendarTaskPopup #popupEditDayCheckboxesContainer {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    #quickAddTaskPopup .color-palette, 
+    #calendarTaskPopup .color-palette,
+    #quickAddTaskPopup .day-checkboxes,
+    #calendarTaskPopup .day-checkboxes {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
+    }
+    #quickAddTaskPopup .day-checkboxes,
+    #calendarTaskPopup .day-checkboxes {
+        gap: 2px;
+    }
+    .day-checkboxes label {
+        padding: 3px 4px;
+        font-size: 0.8rem;
+        min-width: 38px;
+    }
+    .day-checkboxes label span {
+        margin-bottom: 2px;
+    }
+    .color-palette-item,
+    .day-checkboxes label {
+        flex-shrink: 0;
+    }
+
+    #fullScreenContentWrapper .task-text {
+        font-size: 2.5rem;
+    }
+}

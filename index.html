@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>なにし曜</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="notificationBanner" class="notification-banner"></div>
+
+    <div id="settingsPanel" class="container">
+        <button id="backButton" class="back-button">←</button> 
+        <h1 class="text-3xl font-bold text-center mb-6">なにし曜</h1>
+        <p class="user-id-display" id="userIdDisplay">ユーザーID: 読み込み中...</p>
+
+        <div id="settings-main-content">
+            <div class="bg-gray-50 rounded-lg shadow-inner"> 
+                <div class="schedule-header-container mb-4">
+                     <h2 class="text-2xl font-semibold">今週のスケジュール</h2>
+                     <button id="templateActionsButton" title="テンプレート操作">🗓️</button>
+                     <div id="templateDropdownMenu" class="template-dropdown">
+                         <button id="saveScheduleAsTemplateButton">現在のスケジュールをテンプレートとして保存</button>
+                         <div class="divider"></div>
+                         <div class="template-list-header">保存済みテンプレート</div>
+                         <div id="templateList"></div>
+                     </div>
+                </div>
+                <div id="calendar-wrapper">
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+                <p id="noTasksMessage" class="text-center text-gray-500 mt-4" style="display: none;">まだタスクがありません。</p>
+            </div>
+            
+            <div id="taskSummaryContainer" class="shadow-inner">
+                <h3 class="text-xl font-semibold mb-4 text-center">タスク別 週間合計時間</h3>
+                <table id="taskSummaryTable">
+                    <thead>
+                        <tr>
+                            <th>タスク名</th>
+                            <th class="text-left">合計時間</th> </tr>
+                    </thead>
+                    <tbody id="taskSummaryTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="fullScreenOverlay" class="full-screen-overlay">
+        <button id="settingsButton" class="settings-button">⚙️</button>
+        <div class="next-task-display" id="nextTaskDisplay">
+            次: <span id="nextTaskName">自由時間</span>
+        </div>
+        <div id="fullScreenContentWrapper">
+            <div class="task-text" id="currentTaskText"></div>
+            <div class="task-time-display" id="currentTaskTimeRange"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="taskProgressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="messageBox" class="message-box">
+        <button class="popup-close-button">&times;</button>
+        <p id="messageText"></p>
+        <button id="messageBoxCloseButton">OK</button>
+    </div>
+
+    <div id="calendarTaskPopup" class="popup-base">
+        <button class="popup-close-button">&times;</button>
+        <h3>タスクの編集</h3>
+        <div>
+            <div class="form-field-header">
+                <label for="popupEditTaskName">タスク名:</label>
+            </div>
+            <input type="text" id="popupEditTaskName">
+        </div>
+        <div class="flex gap-4">
+            <div class="flex-1">
+                <label for="popupEditStartTime">開始時刻:</label>
+                <input type="time" id="popupEditStartTime">
+            </div>
+            <div class="flex-1">
+                <label for="popupEditEndTime">終了時刻:</label>
+                <input type="time" id="popupEditEndTime">
+            </div>
+        </div>
+        <div>
+            <label>タスクの色:</label>
+            <div id="popupEditTaskColorPalette" class="color-palette"></div>
+             <input type="hidden" id="popupEditTaskColorValue"> 
+        </div>
+        <div id="popupEditDayCheckboxesContainer">
+            <h4>繰り返し曜日:</h4>
+            <div id="popupEditDayCheckboxes" class="day-checkboxes"></div>
+        </div>
+        <div class="popup-button-group">
+            <button id="popupUpdateButton">変更を保存</button>
+            <button id="popupDeleteButton">このタスクを削除</button>
+        </div>
+    </div>
+
+    <div id="quickAddTaskPopup" class="popup-base">
+        <button class="popup-close-button">&times;</button>
+        <h3>新しいタスクを追加</h3>
+        <p id="quickAddErrorMessage" style="display: none;"></p> 
+        <div>
+            <div class="form-field-header">
+                <label for="quickAddTaskName">タスク名:</label>
+                <span id="quickAddExistingTaskMessage" class="existing-task-message" style="display: none;">（既存のタスク）</span>
+            </div>
+            <input type="text" id="quickAddTaskName" placeholder="タスク名">
+        </div>
+        <div class="flex gap-4">
+            <div class="flex-1">
+                <label for="quickAddStartTime">開始時刻:</label>
+                <input type="time" id="quickAddStartTime">
+            </div>
+            <div class="flex-1">
+                <label for="quickAddEndTime">終了時刻:</label>
+                <input type="time" id="quickAddEndTime">
+            </div>
+        </div>
+        <div>
+            <label>タスクの色:</label>
+            <div id="quickAddTaskColorPalette" class="color-palette"></div>
+            <input type="hidden" id="quickAddTaskColorValue"> 
+        </div>
+        <div id="quickAddDayCheckboxesContainer">
+            <h4>繰り返し曜日:</h4>
+            <div id="quickAddDayCheckboxes" class="day-checkboxes"></div>
+        </div>
+        <div class="popup-button-group">
+            <button id="quickAddTaskSaveButton">保存</button>
+            <button id="quickAddTaskCancelButton">キャンセル</button>
+        </div>
+    </div>
+
+    <div id="saveTemplatePopup" class="popup-base">
+        <button class="popup-close-button">&times;</button>
+        <h3>テンプレートを保存</h3>
+        <div>
+            <label for="templateNameInput">テンプレート名:</label>
+            <input type="text" id="templateNameInput" placeholder="例: 平日の基本スケジュール">
+        </div>
+        <div class="popup-button-group">
+            <button id="saveTemplateConfirmButton" class="bg-blue-500 hover:bg-blue-600">保存</button>
+            <button id="saveTemplateCancelButton" class="bg-gray-500 hover:bg-gray-600">キャンセル</button>
+        </div>
+    </div>
+
+    <div id="overlapDialog" class="overlap-dialog">
+        <button class="popup-close-button">&times;</button>
+        <h3>スケジュールが重複します</h3>
+        <p id="overlapDialogMessage">この時間帯にはすでにタスクが登録されています。上書きしますか？</p>
+        <div class="button-group">
+            <button id="overwriteButton" class="overwrite-button">上書き</button>
+            <button id="cancelOverlapButton" class="cancel-button">キャンセル</button>
+        </div>
+    </div>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>
